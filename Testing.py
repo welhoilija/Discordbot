@@ -1,4 +1,4 @@
-Name = "\nWelho#3819"
+Name = ""
 bosslist = open('bosslist.txt','r')
 List = bosslist.read().split(" ")
 with open('bosslist.txt','r') as f:
