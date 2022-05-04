@@ -1,11 +1,10 @@
 #! python3
-"""MADE BY TUOMAS KANGAS"""
 import discord
 import asyncio
 from discord.ext.commands import Bot
 from discord.ext import commands
 import traceback as tb
-import praw 
+import praw
 import pandas as pd
 import datetime as dt
 import re
@@ -14,8 +13,10 @@ from discord.voice_client import VoiceClient
 import redis
 import random
 from Credentials import *
-TOKEN = 'NTE2MzY0NjgyMTAyMzA4ODc4.DtymLg.O-D7Of-dCpofR2tuqSfa0mjD4Xc'
+TOKEN = ''
 
+
+#scrapes redditAPI
 reddit = praw.Reddit(client_id=clientid, \
                         client_secret=clientsecret, \
                         user_agent='redditapp for discord', \
@@ -25,9 +26,16 @@ reddit = praw.Reddit(client_id=clientid, \
 
 
 
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix='.')
 
-"""For Bosslist, open txt file where to save the persons in list"""
+"""@bot.command(name = "reddit", pass_context = True)
+async def redditcom(ctx, subreddit):
+
+    subreddit = reddit.subreddit(subreddit)
+    for submission in subreddit.hot(limit=3):
+        await ctx.send("{0}".format(submission.title))
+        await ctx.send("{0}".format(submission.url))
+For Bosslist, open txt file where to save the persons in list"""
 
 
 @bot.command(name = "join", pass_context = True)
@@ -68,11 +76,6 @@ async def register(ctx, Name):
         await ctx.send("THATS NOT YOU")
 
 
-@bot.command(pass_context=True,description='Oletko homoseksuaali? .',
-                aliases=['playing'])
-async def homo(ctx):
-    await ctx.send("Äitis oli")
-
 
 
 
@@ -85,12 +88,11 @@ async def mp(ctx, *, member: discord.Member):
         await ctx.send("{0} on Boss".format(member))
 
     else:
-        await ctx.send("{0} on läski".format(member))
+        await ctx.send("{0} ei ole Boss".format(member))
 
 @bot.command()
 async def joined(ctx, *, member: discord.Member):
     await ctx.send('{0} joined on {0.joined_at}'.format(member))
-
 
 
 
@@ -101,6 +103,8 @@ async def memes(ctx):
     for submission in subreddit.hot(limit=3):
         await ctx.send("{0}".format(submission.title))
         await ctx.send("{0}".format(submission.url))
+
+        
 @bot.command()
 async def news(ctx):
     subreddit = reddit.subreddit('news')
